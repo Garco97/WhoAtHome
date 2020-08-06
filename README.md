@@ -25,10 +25,5 @@ Python script that lets see who is at home. There is a configuration and a users
         "ip": "200",
         "active": 1
     },
-    {
-    .
-    .
-    .
-    }
 ]
 ```

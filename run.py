@@ -45,7 +45,6 @@ if __name__ == "__main__":
             body += "\n" + "\n".join([user.name + configuration.leave for user in disconnected])          
             msg = f'Subject:{configuration.subject}\n\n{body}'
             emails = [user.email for user in users if user.active]
-            print(emails)
             if emails:
                 server.sendmail(
                         configuration.email,
