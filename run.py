@@ -9,7 +9,7 @@ from types import SimpleNamespace
 def run(i,user):
     output = subprocess.Popen(['ping','-c','3', str(all_hosts[i])], stdout=subprocess.PIPE).communicate()[0]
     if "100% packet loss" not in str(output):
-        ips.append(user[0])
+        ips.append(user)
 
 def read_configuration():
     configuration = json.load(open("configuration.json"))
@@ -29,9 +29,10 @@ if __name__ == "__main__":
         users = read_users()
         for ip in range(len(all_hosts)):
             user = [user for user in users if user.ip == str(all_hosts[ip])[-3:]]
-            t = threading.Thread(target=run, args=(ip,user,))
-            threads.append(t)
-            t.start()
+            if user: 
+                t = threading.Thread(target=run, args=(ip,user[0],))
+                threads.append(t)
+                t.start()
         for thread in threads:thread.join()
         connected = [ip for ip in ips if ip not in old_ips]
         disconnected = [ip for ip in old_ips if ip not in ips]
